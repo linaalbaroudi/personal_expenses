@@ -46,10 +46,9 @@ class _AddTransactionState extends State<AddTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+    return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [

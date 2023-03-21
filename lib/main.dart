@@ -33,16 +33,34 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [
     // Transaction(
+    //     id: "00",
+    //     title: "Supermarket",
+    //     amount: 600.65,
+    //     date: DateTime.now()
+    // ),
+    // Transaction(
     //   id: "01",
     //   title: "nail salon",
-    //   amount: 300.1111,
-    //   date: DateTime.now().subtract(Duration(days: 4))
+    //   amount: 300.5123,
+    //   date: DateTime.now().subtract(Duration(days: 1))
     // ),
     // Transaction(
     //   id: "02",
     //   title: "hunger station order",
-    //   amount: 59.3245,
-    //   date: DateTime.now().subtract(Duration(days: 1))
+    //   amount: 59.32,
+    //   date: DateTime.now().subtract(Duration(days: 2))
+    // ),
+    // Transaction(
+    //     id: "03",
+    //     title: "Hat",
+    //     amount: 60.5,
+    //     date: DateTime.now().subtract(Duration(days: 3))
+    // ),
+    // Transaction(
+    //     id: "04",
+    //     title: "Shoes",
+    //     amount: 470.95,
+    //     date: DateTime.now().subtract(Duration(days: 7))
     // ),
   ];
 
@@ -89,33 +107,35 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: const Icon(Icons.add)),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 8, left: 4),
-                child: Text(
-                  "Weekly Summary:",
-                  style: Theme.of(context).textTheme.labelLarge,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 4),
+                  child: Text(
+                    "Weekly Summary:",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                 ),
-              ),
-              TransactionsChart(latestTransactions: _latestTransactions),
-              //UserTransactions(),
-              Padding(
-                padding: const EdgeInsets.only(top: 8, left: 4),
-                child: Text(
-                  "Transactions:",
-                  style: Theme.of(context).textTheme.labelLarge,
+                TransactionsChart(latestTransactions: _latestTransactions),
+                //UserTransactions(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, left: 4),
+                  child: Text(
+                    "Transactions:",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                 ),
-              ),
-              _transactions.isEmpty
-                  ? NoData()
-                  : TransactionsList(transactions: _transactions, deleteTX: _removeTX),
-            ],
+                _transactions.isEmpty
+                    ? NoData()
+                    : TransactionsList(transactions: _transactions, deleteTX: _removeTX),
+              ],
+            ),
           ),
         ),
       ),
