@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:personal_expenses/views/widgets/no_data.widget.dart';
 import './views/widgets/add_transaction.widget.dart';
@@ -64,6 +66,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
 
+  bool _showChart = true;
+
   List<Transaction> get _latestTransactions{
     return _transactions.where((tx){
       return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
@@ -98,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Personal Expenses'),
@@ -117,12 +122,36 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 8, left: 4),
-                  child: Text(
-                    "Weekly Summary:",
-                    style: Theme.of(context).textTheme.labelLarge,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          "Weekly Summary:",
+                          style: Theme.of(context).textTheme.labelLarge,
+                        ),
+                      ),
+                      if(isLandscape) Padding(
+                        padding: const EdgeInsets.only(top: 3, right: 3),
+                        child: Text(
+                          _showChart ? "Hide" : "show",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
+                      if(isLandscape) Switch(
+                        value: _showChart,
+                        onChanged: (value){
+                          setState(() {
+                            _showChart = value;
+                          });
+                        },
+                        activeColor: Theme.of(context).focusColor,
+                      )
+                    ],
                   ),
                 ),
-                TransactionsChart(latestTransactions: _latestTransactions),
+                if(!isLandscape) TransactionsChart(latestTransactions: _latestTransactions),
+                if(isLandscape) if(_showChart) TransactionsChart(latestTransactions: _latestTransactions),
                 //UserTransactions(),
                 Padding(
                   padding: const EdgeInsets.only(top: 8, left: 4),
